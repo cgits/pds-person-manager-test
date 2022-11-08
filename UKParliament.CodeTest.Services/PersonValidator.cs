@@ -36,7 +36,17 @@ public class PersonValidator : IPersonValidator
 
         if (person.PhoneNumbers?.Any() ?? false)
         {
-            errors.AddRange(person.PhoneNumbers?.SelectMany(ValidatePhoneNumber));
+            errors.AddRange(person.PhoneNumbers.SelectMany(ValidatePhoneNumber));
+
+            if (person.PhoneNumbers.Count() > 1 && person.PhoneNumbers.All(x => !x.IsPrimary))
+            {
+                errors.Add("Where more than one number is specified, person must have one primary number.");
+            }
+
+            if (person.PhoneNumbers.Count(x => x.IsPrimary) > 1)
+            {
+                errors.Add("Person cannot have more than one primary number.");
+            }
         }
         
         return errors;

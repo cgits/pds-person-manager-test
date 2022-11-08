@@ -34,6 +34,8 @@ public class PersonMapper : IPersonMapper
 
     public Person MapForSave(PersonDetail person)
     {
+        var autoPrimary = person.PhoneNumbers?.Count() == 1;
+        
         return new Person(person.Id,
             person.Title,
             person.Name,
@@ -42,7 +44,7 @@ public class PersonMapper : IPersonMapper
             person.AccountEnabled)
         {
             Addresses = MapEntities(person),
-            PhoneNumbers = person.PhoneNumbers?.Select(x => MapPhoneNumberForSave(x, person.Id)).Where(x => x != null).ToList()
+            PhoneNumbers = person.PhoneNumbers?.Select(x => MapPhoneNumberForSave(x, person.Id, autoPrimary)).Where(x => x != null).ToList()
         };
     }
 
@@ -62,14 +64,14 @@ public class PersonMapper : IPersonMapper
             personDetail.Id);
     }
 
-    private EntityPhoneNumber? MapPhoneNumberForSave(PhoneNumbers phoneNumber, int personId)
+    private EntityPhoneNumber? MapPhoneNumberForSave(PhoneNumbers phoneNumber, int personId, bool forcePrimary)
     {
         if (string.IsNullOrWhiteSpace(phoneNumber.Number) || string.IsNullOrWhiteSpace(phoneNumber.Description))
         {
             return null;
         }
         
-        return new EntityPhoneNumber(phoneNumber.Id, phoneNumber.Number, phoneNumber.Description, phoneNumber.IsPrimary, personId);
+        return new EntityPhoneNumber(phoneNumber.Id, phoneNumber.Number, phoneNumber.Description, forcePrimary || phoneNumber.IsPrimary, personId);
     }
     
     private PhoneNumbers MapPhoneNumbers(EntityPhoneNumber phoneNumber)

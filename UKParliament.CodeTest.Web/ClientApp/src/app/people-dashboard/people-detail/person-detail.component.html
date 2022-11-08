@@ -3,24 +3,24 @@
 <div class="person-form">
   <div class="mb-3 row g-3">
     <div class="col-3">
-      <label class="form-label" for="title">Title</label>
+      <label class="form-label required" for="title">Title</label>
       <input [(ngModel)]="person.title" type="text" id="title" class="form-control">
     </div>
 
     <div class="col-9">
-      <label class="form-label" for="name">Name</label>
+      <label class="form-label required" for="name">Name</label>
       <input [(ngModel)]="person.name" type="text" id="name" class="form-control">
     </div>
   </div>
 
   <div class="mb-3">
-    <label class="form-label" for="dob">Date of Birth</label>
+    <label class="form-label required" for="dob">Date of Birth</label>
     <input [(ngModel)]="person.dateOfBirth" type="date" placeholder="yyyy/MM/dd" id="dob" class="form-control">
   </div>
 
   <div class="mb-3 row g-3 align-items-end">
     <div class="col-8">
-      <label class="form-label" for="email">Email</label>
+      <label class="form-label required" for="email">Email</label>
       <input [(ngModel)]="person.email" type="email" id="email" class="form-control">
     </div>
 
@@ -50,7 +50,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="line1">Line one</label>
+          <label class="form-label" [class.required]="person.hasAddress()" for="line1">Line one</label>
           <input [(ngModel)]="person.lineOne" type="text" id="line1" class="form-control">
         </div>
 
@@ -61,18 +61,18 @@
 
         <div class="mb-3 row g-3">
           <div class="col">
-            <label class="form-label" for="city">City</label>
+            <label class="form-label" [class.required]="person.hasAddress()" for="city">City</label>
             <input [(ngModel)]="person.city" type="text" id="city" class="form-control">
           </div>
 
           <div class="col">
-            <label class="form-label" for="postCode">Post Code</label>
+            <label class="form-label" [class.required]="person.hasAddress()" for="postCode">Post Code</label>
             <input [(ngModel)]="person.postCode" type="text" id="postCode" class="form-control">
           </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="country">Country</label>
+          <label class="form-label" [class.required]="person.hasAddress()" for="country">Country</label>
           <input [(ngModel)]="person.country" type="text" id="country" class="form-control">
         </div>
       </div>
@@ -91,12 +91,12 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="number">Phone number</label>
+            <label class="form-label required" for="number">Phone number</label>
             <input [(ngModel)]="nos.number" type="text" id="number" class="form-control">
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="description">Description</label>
+            <label class="form-label required" for="description">Description</label>
             <input [(ngModel)]="nos.description" type="text" id="description" class="form-control">
           </div>
 

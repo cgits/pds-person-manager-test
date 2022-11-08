@@ -11,8 +11,9 @@
     height: 40px;
     width: 40px;
     line-height: 40px;
+    margin-top: 5px;
+
     display: inline-block;
-    vertical-align: center;
 
     &:hover {
       background: lighten(#0d6efd, 20%);

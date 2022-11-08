@@ -69,6 +69,11 @@ export class PersonDetailComponent {
   }
 
   savePerson() {
+    if (this.person.phoneNumbers?.length === 1) {
+      //if person only has one number, it is the primary number
+      this.person.phoneNumbers[0].isPrimary = true;
+    }
+
     const errors = this.person.validate();
 
     if (errors.length > 0){

@@ -65,6 +65,15 @@ export class PeopleSearchComponent implements OnInit, OnDestroy {
     this.searchPeople();
   }
 
+  updatePageSize(changeEvent: Event): void {
+    const pageSize = parseInt((changeEvent.target as HTMLInputElement).value);
+
+    if (!isNaN(pageSize) && pageSize > 0) {
+      this.query.take = pageSize;
+      this.searchPeople();
+    }
+  }
+
   public ngOnInit(): void {
     this.changeSearch.subscribe(() => {
       this.searchPeople();

@@ -5,7 +5,7 @@ export class PersonQuery {
   email: string|null = null;
   enabled: boolean|null = null;
   skip: number = 0;
-  take: number = 2;
+  take: number = 5;
 
   validate(): string[] {
     const errors: string[] = [];
