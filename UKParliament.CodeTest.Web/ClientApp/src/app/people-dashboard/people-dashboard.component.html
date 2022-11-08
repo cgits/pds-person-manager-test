@@ -1,0 +1,21 @@
+<h1 class="text-center">People Manager</h1>
+
+<div class="row">
+  <div class="col-12 col-sm-6 col-md-5">
+    <people-search (messageEmitter)="toggleErrorMessage($event)" (editEmitter)="personId = $event" (deleteEmitter)="itemDeleted($event)" [changeSearch]="changeSearch"></people-search>
+  </div>
+  <div class="col-12 col-sm-6 col-md-6 offset-md-1">
+    <person-detail (messageEmitter)="toggleErrorMessage($event)" [personId]="personId" (savedPersonEmitter)="refreshSearch($event)"></person-detail>
+    <button class="btn btn-secondary w-100 mt-2" (click)="personId = 0" *ngIf="personId != 0">
+      <i class="bi bi-person-plus-fill"></i>
+      Add new person
+    </button>
+  </div>
+</div>
+
+<div class="alert alert-{{errorMessage.alertType}} alert-dismissible" *ngIf="errorMessage">
+  <div class="container">
+    <div class="message">{{errorMessage.message}}</div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="toggleErrorMessage(null)"></button>
+  </div>
+</div>

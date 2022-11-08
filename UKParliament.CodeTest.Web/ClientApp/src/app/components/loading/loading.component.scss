@@ -1,0 +1,20 @@
+﻿.loading {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(darkgrey, 0.85);
+  z-index: 100;
+  overflow: hidden;
+
+  svg {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    display: inline-block;
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
+  }
+}

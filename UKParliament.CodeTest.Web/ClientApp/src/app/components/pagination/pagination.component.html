@@ -1,0 +1,5 @@
+<div class="pagination-container">
+  <a *ngFor="let page of this.getPageNumbers()" class="page" [class.currentPage]="page == this.getCurrentPage()" [attr.disabled]="page == this.getCurrentPage()" (click)="updatePage(page)">
+    {{page}}
+  </a>
+</div>

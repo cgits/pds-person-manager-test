@@ -1,0 +1,121 @@
+<loading *ngIf="isLoading"></loading>
+
+<div class="person-form">
+  <div class="mb-3 row g-3">
+    <div class="col-3">
+      <label class="form-label" for="title">Title</label>
+      <input [(ngModel)]="person.title" type="text" id="title" class="form-control">
+    </div>
+
+    <div class="col-9">
+      <label class="form-label" for="name">Name</label>
+      <input [(ngModel)]="person.name" type="text" id="name" class="form-control">
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="dob">Date of Birth</label>
+    <input [(ngModel)]="person.dateOfBirth" type="date" placeholder="yyyy/MM/dd" id="dob" class="form-control">
+  </div>
+
+  <div class="mb-3 row g-3 align-items-end">
+    <div class="col-8">
+      <label class="form-label" for="email">Email</label>
+      <input [(ngModel)]="person.email" type="email" id="email" class="form-control">
+    </div>
+
+    <div class="col-4">
+      <div class="form-check">
+        <input [checked]="person.accountEnabled" (change)="person.accountEnabled = !person.accountEnabled" class="form-check-input" type="checkbox" id="enabled">
+        <label class="form-check-label" for="enabled">
+          Account enabled
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <button class="btn btn-secondary w-100" *ngIf="!hasAddress" (click)="hasAddress = true">
+        Add address
+        <i class="bi bi-send-plus-fill"></i>
+      </button>
+
+      <div class="address" *ngIf="hasAddress">
+        <div class="float-end">
+          <button type="button" class="btn btn-danger mb-1" (click)="clearAddress()">
+            <i class="bi bi-trash"></i>
+            Remove address
+          </button>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="line1">Line one</label>
+          <input [(ngModel)]="person.lineOne" type="text" id="line1" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="line2">Line two</label>
+          <input [(ngModel)]="person.lineTwo" type="text" id="line2" class="form-control">
+        </div>
+
+        <div class="mb-3 row g-3">
+          <div class="col">
+            <label class="form-label" for="city">City</label>
+            <input [(ngModel)]="person.city" type="text" id="city" class="form-control">
+          </div>
+
+          <div class="col">
+            <label class="form-label" for="postCode">Post Code</label>
+            <input [(ngModel)]="person.postCode" type="text" id="postCode" class="form-control">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="country">Country</label>
+          <input [(ngModel)]="person.country" type="text" id="country" class="form-control">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="phone-no card mt-2" *ngFor="let nos of person.phoneNumbers; let i = index">
+        <div class="card-body">
+          <div class="float-end">
+            <button type="button" class="btn btn-danger mb-1" (click)="removePhoneNo(nos)">
+              <i class="bi bi-trash"></i>
+              Remove phone number
+            </button>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="number">Phone number</label>
+            <input [(ngModel)]="nos.number" type="text" id="number" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <input [(ngModel)]="nos.description" type="text" id="description" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <input [checked]="nos.isPrimary" (change)="togglePrimaryPhoneNumber(nos)" class="form-check-input" name="phoneNoIsPrimary" id="isPrimary-{{i}}" type="radio">
+            <label class="form-check-label" for="isPrimary-{{i}}">
+              Is Primary
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary w-100 mt-2" (click)="addPhoneNumber()">
+        Add phone number
+        <i class="bi bi-telephone-plus-fill"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<button class="btn btn-primary w-100 mt-3" (click)="savePerson()">
+  Save
+</button>

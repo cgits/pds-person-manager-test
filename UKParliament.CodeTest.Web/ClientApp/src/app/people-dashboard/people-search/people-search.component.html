@@ -1,0 +1,79 @@
+<loading *ngIf="isLoading"></loading>
+
+<form (submit)="query.skip = 0; searchPeople()">
+  <button (click)="showSearch = !showSearch" class="btn btn-light float-end">
+    {{showSearch ? "Collapse" : "Show search"}}
+  </button>
+  <div [class.d-none]="!showSearch">
+    <div class="mb-3">
+      <label class="form-label" for="form-name">Name</label>
+      <input [(ngModel)]="query.name" name="name" type="text" class="form-control" id="form-name">
+    </div>
+
+    <div class="mb-3 row g-3">
+      <div class="col-6">
+        <label class="form-label" for="age-from">Age from</label>
+        <input [(ngModel)]="query.ageFrom" name="ageFrom" type="number" class="form-control" id="age-from" min="0">
+      </div>
+
+      <div class="col-6">
+        <label class="form-label" for="age-to">Age to</label>
+        <input [(ngModel)]="query.ageTo" name="ageTo" type="number" class="form-control" id="age-to" min="0">
+      </div>
+    </div>
+
+    <div class="mb-3 row g-3 align-items-end">
+      <div class="col-12 col-lg-4">
+        <label class="form-label" for="form-email">Email</label>
+        <input [(ngModel)]="query.email" name="email" type="email" class="form-control" id="form-email">
+      </div>
+
+      <div class="col-12 col-md-7 col-lg-5">
+        <label class="form-label" for="form-email">Account enabled</label>
+        <true-false-selector [isSelected]="query.enabled" (isSelectedEmitter)="query.enabled = $event"></true-false-selector>
+      </div>
+
+      <div class="col-12 col-md-5 col-lg-3">
+        <button type="submit" class="btn btn-primary w-100">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<hr/>
+
+<div *ngIf="!isLoading && (searchResult?.results?.length ?? 0) && searchResult != null && searchResult.results != null">
+  <pagination [skip]="query.skip" [take]="query.take" [total]="searchResult.totalResults" (skipEmitter)="updatePage($event)"></pagination>
+
+  <div class="card mt-2" *ngFor="let person of (searchResult?.results ?? [])">
+    <div class="card-header d-flex justify-content-between">
+      {{person.title}} {{person.name}}
+
+      <div class="d-flex justify-content-between gap-2">
+        <button type="button" class="btn btn-danger" (click)="deletePerson(person.id)">
+          <i class="bi bi-trash"></i>
+          <span class="visually-hidden">Delete</span>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="editPerson(person.id)">
+          <i class="bi bi-pencil-square"></i>
+          <span class="visually-hidden">Edit</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="card-text">
+        <li>Date of Birth: {{person.dateOfBirth}}</li>
+        <li>Email: <a href="mailto:{{person.email}}" target="_blank">{{person.email}}</a></li>
+      </ul>
+    </div>
+    <div class="card-footer text-muted">
+      Account {{person.accountEnabled ? "active": "disabled"}}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!(searchResult?.results?.length ?? 0)">
+  There were no results for the search.
+</div>

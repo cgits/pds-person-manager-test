@@ -1,0 +1,8 @@
+<div class="toggle">
+  <input type="radio" id="true" name="Yes" [checked]="isSelected === true" (change)="ChangeSelected(true)" />
+  <label class="toggle-button" for="true">Yes</label>
+  <input type="radio" id="false" name="No" [checked]="isSelected === false" (change)="ChangeSelected(false)" />
+  <label class="toggle-button" for="false">No</label>
+  <input type="radio" id="clear" name="Clear" [checked]="isSelected === null" (change)="ChangeSelected(null)" />
+  <label for="clear">Clear</label>
+</div>

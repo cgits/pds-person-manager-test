@@ -1,0 +1,29 @@
+﻿.pagination-container {
+  height: 50px;
+  text-align: right;
+
+  .page {
+    text-align: center;
+    background: #6c757d;
+    text-decoration: none;
+    color: white;
+    border: 1px solid white;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    display: inline-block;
+    vertical-align: center;
+
+    &:hover {
+      background: lighten(#0d6efd, 20%);
+    }
+
+    &.currentPage {
+      background: #0d6efd;
+    }
+
+    &:not(.currentPage){
+      cursor: pointer;
+    }
+  }
+}
